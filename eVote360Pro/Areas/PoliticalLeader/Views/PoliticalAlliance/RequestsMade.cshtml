@@ -1,0 +1,62 @@
+﻿@using eVote360Pro.Core.Domain.Common.Enums
+@model IEnumerable<PoliticalAllianceViewModel>
+@{
+	ViewData["Title"] = "Political Leader - Requests Made";
+	var showButtons = ViewBag.HasActiveElection ? false : true;
+}
+
+<div class="container-fluid mb-5">
+	<div class="d-flex justify-content-between gap-2">
+		<a asp-area="PoliticalLeader" asp-controller="PoliticalAlliance" asp-action="Index" class="btn btn-outline-dark fw-semibold"><i class="bi bi-arrow-left"></i> Go back</a>
+		<a asp-area="PoliticalLeader" asp-controller="PoliticalAlliance" asp-action="Create" class="btn btn-outline-dark fw-semibold px-5 @(showButtons ? "" : "disabled")"><i class="bi bi-plus-lg"></i> Create alliance request</a>
+	</div>
+
+	@if (!showButtons)
+	{
+		<div class="card bg-warning mt-2 p-2">
+			<h5 class="fs-5 text-center text-light fw-normal m-0"><i class="bi bi-info-circle-fill"></i> Political alliances cannot be modified while there is an active election.</h5>
+		</div>
+	}
+
+	<div class="card shadow-sm border-0 mt-2">
+		<div class="card-header bg-dark text-white">
+			<h2 class="fs-4 m-0"><i class="bi bi-envelope-check-fill"></i> Requests Made</h2>
+		</div>
+
+		<div class="card-body bg-white p-0">
+			<div class="table-responsive">
+				<table class="table table-bordered m-0 table-hover">
+					<thead>
+						<tr>
+							<th>Target Party</th>
+							<th>Sent date</th>
+							<th>Status</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						@if (Model is not null)
+						{
+							foreach (var item in Model)
+							{
+								<tr>
+									<td>@item.TargetParty.Name (@item.TargetParty.Acronym)</td>
+									<td>@item.RequestDate</td>
+									<td>@item.Status</td>
+									@if (item.Status == AllianceStatus.Pending || item.Status == AllianceStatus.Rejected)
+									{
+										<td>
+											<a asp-area="PoliticalLeader" asp-controller="PoliticalAlliance" asp-action="DeleteRequest" asp-route-id="@item.Id" class="btn btn-sm btn-danger @(showButtons ? "" : "pe-none")">
+												Delete request
+											</a>
+										</td>
+									}
+								</tr>
+							}
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

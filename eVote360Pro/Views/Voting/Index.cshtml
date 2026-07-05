@@ -1,0 +1,75 @@
+﻿@model IEnumerable<AvailablePositionViewModel>
+@{
+	ViewData["Title"] = "Vote Page - Available Positions";
+}
+
+<div class="container-fluid mb-5">
+	<div class="card shadow-sm border-0 mt-2">
+		<div class="card-header bg-dark text-white">
+			<h2 class="fs-4 m-0"><i class="bi bi-person-fill-gear"></i> Available Positions</h2>
+		</div>
+
+		<div class="card-body bg-white p-0">
+			<div class="table-responsive">
+				<table class="table table-bordered m-0 table-hover">
+					<thead>
+						<tr>
+							<th>Position Name</th>
+							<th>Total Participating Parties</th>
+							<th>Total Real Candidates</th>
+							<th>Status</th>			
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						@if (Model is not null)
+						{
+							foreach (var item in Model)
+							{
+								<tr>
+									<td>@item.PositionName</td>
+									<td>@item.TotalParticipatingParties</td>
+									<td>@item.TotalRealCandidates</td>
+									<td>
+										@if (item.HasSelectedCandidate)
+										{
+											<span class="badge bg-success px-3 py-2">
+												Voted
+											</span>
+										}
+										else
+										{
+											<span class="badge bg-warning text-dark px-3 py-2">
+												 Pending
+											</span>
+										}
+									</td>
+
+									<td>
+										@if (item.HasSelectedCandidate)
+										{
+											<a asp-controller="Voting" asp-action="Candidates" asp-route-positionId="@item.PositionId" class="btn btn-sm btn-outline-dark">
+												 Change Vote
+											</a>
+										}
+										else
+										{
+											<a asp-controller="Voting" asp-action="Candidates" asp-route-positionId="@item.PositionId" class="btn btn-sm btn-dark">
+												 Vote
+											</a>
+										}
+									</td>
+								</tr>
+							}
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="text-end mt-3">
+		<a asp-controller="Voting" asp-action="Finalize" class="btn btn-dark btn-lg px-5 text-white fw-semibold shadow-sm">
+			<i class="bi bi-envelope-check-fill"></i> Finalize Voting Process
+		</a>
+	</div>
+</div>

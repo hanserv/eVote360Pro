@@ -1,0 +1,118 @@
+﻿@model PositionCandidatesViewModel
+@{
+    ViewData["Title"] = $"Vote Page - {Model.PositionName}";
+}
+
+<div class="container-fluid mb-5">
+
+    <div class="d-flex justify-content-between">
+        <a asp-controller="Voting"
+           asp-action="Index"
+           class="btn btn-outline-dark fw-semibold">
+            <i class="bi bi-arrow-left"></i> Go back
+        </a>
+    </div>
+
+    <div class="card shadow-sm border-0 mt-2">
+        <div class="card-header bg-dark text-white">
+            <h2 class="fs-4 m-0">
+                <i class="bi bi-check2-square"></i>
+                @Model.PositionName
+            </h2>
+        </div>
+
+        <div class="card-body">
+
+            @Html.ValidationSummary(excludePropertyErrors: false, "", new { @class = "text-danger" })
+            <form asp-area="" asp-controller="Voting" asp-action="Vote" method="post">
+                <input asp-for="PositionId" type="hidden" />
+                <div class="row g-3">
+                    @foreach (var candidate in Model.Candidates)
+                    {
+                        <div class="col-md-6 col-lg-4">
+                            <label class="card vote-card h-100">
+                                <div class="card-body text-center">
+
+                                    <img src="/@candidate.CandidatePhoto"
+                                         alt="@candidate.CandidateName"
+                                         class="img-fluid rounded-circle mb-3"
+                                         width="120"
+                                         height="120" />
+
+                                    <h5>@candidate.CandidateName</h5>
+
+                                    <img src="/@candidate.PoliticalPartyLogo"
+                                         alt="@candidate.PoliticalPartyName"
+                                         class="img-fluid mb-2"
+                                         width="60" />
+
+                                    <p class="text-muted mb-3">
+                                        @candidate.PoliticalPartyName
+                                    </p>
+
+                                    <div class="form-check d-flex justify-content-center">
+                                        <input class="form-check-input"
+                                               type="radio"
+                                               asp-for="SelectedAssignmentId"
+                                               value="@candidate.AssignmentId" />
+                                    </div>
+
+                                </div>
+                            </label>
+                        </div>
+                    }
+
+                    <div class="col-md-6 col-lg-4">
+                        <label class="card vote-card h-100">
+                            <div class="card-body text-center d-flex flex-column justify-content-center">
+
+                                <i class="bi bi-dash-circle fs-1 mb-3"></i>
+
+                                <h4>None</h4>
+
+                                <p class="text-muted">
+                                    I do not wish to select any candidate for this position.
+                                </p>
+
+                                <div class="form-check d-flex justify-content-center">
+                                    <input class="form-check-input" 
+                                           type="radio"
+                                           asp-for="SelectedAssignmentId"
+                                           value="-1" 
+                                           checked="@(!Model.SelectedAssignmentId.HasValue )"
+                                           />
+                                </div>
+
+                            </div>
+                        </label>
+                    </div>
+
+                </div>
+
+                <div class="mt-4 text-end">
+                    <button type="submit" class="btn btn-dark px-4">
+                        <i class="bi bi-check-circle"></i>
+                        Save Position Vote
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section Styles
+{
+    <style>
+        .vote-card {
+            transition: all .2s ease-in-out;
+            cursor: pointer;
+        }
+
+        .vote-card:has(input[type="radio"]:checked) {
+            border: 2px solid var(--bs-primary);
+            box-shadow: 0 .25rem .75rem rgba(13, 110, 253, .25);
+        }
+    </style>
+}

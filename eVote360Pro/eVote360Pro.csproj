@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>47416bf4-9a91-4253-8b16-f1b273d5ad28</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="9.0.16" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.16">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\eVote360Pro.Core.Application\eVote360Pro.Core.Application.csproj" />
+    <ProjectReference Include="..\eVote360Pro.Core.Domain\eVote360Pro.Core.Domain.csproj" />
+    <ProjectReference Include="..\eVote360Pro.Infrastructure.Persistence\eVote360Pro.Infrastructure.Persistence.csproj" />
+    <ProjectReference Include="..\eVote360Pro.Infrastructure.Shared\eVote360Pro.Infrastructure.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="tessdata\" />
+    <Folder Include="wwwroot\Images\PoliticalParties\2\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="tessdata\spa.traineddata">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

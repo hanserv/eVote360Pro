@@ -1,0 +1,26 @@
+﻿@model LoginViewModel
+@{
+	ViewData["Title"] = "Login Page";
+}
+
+<div class="container-fluid d-flex justify-content-center bg-light">
+	<div class="card shadow-sm p-4 mt-3 col-12 col-md-6 col-lg-5 border-1 border-warning-subtle">
+		<h1 class="fs-4 fw-bold mb-1">eVote360Pro | Login</h1>
+
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		<form asp-controller="Auth" asp-action="Index" method="post">
+			<div class="mb-3">
+				<label asp-for="UserName" class="form-label">User Name:</label>
+				<input asp-for="UserName" class="form-control" placeholder="example.11" />
+				<span asp-validation-for="UserName" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="Password" class="form-label">Password:</label>
+				<input asp-for="Password" class="form-control" placeholder="Password" autocomplete="on" />
+				<span asp-validation-for="Password" class="text-danger"></span>
+			</div>
+
+			<button type="submit" class="btn btn-dark w-100 mb-3 border-1 border-warning-subtle"><i class="bi bi-box-arrow-in-right"></i> Login</button>
+		</form>
+	</div>
+</div>

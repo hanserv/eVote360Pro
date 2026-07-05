@@ -1,0 +1,25 @@
+﻿@model AcceptAllianceViewModel
+@{
+	ViewData["Title"] = "Accept Alliance Request";
+}
+
+<div class="container-fluid mb-5 d-flex justify-content-center">
+	<div class="card shadow-sm border-0 col-12 col-md-6">
+		<div class="card-header bg-dark text-white">
+			<h2 class="fs-4 m-0 text-center fw-semibold">Are you sure you want to accept the alliance request with the party <span class="fw-bold">@Model.Name</span>?</h2>
+		</div>
+
+		<div class="card-body bg-white p-3">
+			@Html.ValidationSummary(excludePropertyErrors: true, "", new { @class = "text-danger" })
+			<form asp-area="PoliticalLeader" asp-controller="PoliticalAlliance" asp-action="Accept" method="post">
+				<input type="hidden" asp-for="Id" />
+				<input type="hidden" asp-for="Name" />
+
+				<div class="d-flex col-12 gap-2 justify-content-end pt-1">
+					<a asp-area="PoliticalLeader" asp-controller="PoliticalAlliance" asp-action="PendingRequests" class="btn btn-outline-warning px-4 pt-2 fw-semibold">Cancel</a>
+					<button type="submit" class="btn btn-outline-dark px-5 pt-2 fw-semibold">Accept</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

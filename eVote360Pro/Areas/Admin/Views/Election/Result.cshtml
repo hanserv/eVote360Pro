@@ -1,0 +1,105 @@
+﻿@model ElectionResultsViewModel
+
+@{
+	ViewData["Title"] = $"Election Results - {Model.ElectionName}";
+}
+
+<div class="container-fluid mb-5">
+	<div class="d-flex justify-content-between mb-3">
+		<a asp-area="Admin" asp-controller="Election" asp-action="Index" class="btn btn-outline-dark fw-semibold"><i class="bi bi-arrow-left"></i> Go back</a>
+	</div>
+
+	<div class="card shadow-sm border-0">
+
+		<div class="card-header bg-dark text-white">
+			<h2 class="fs-4 m-0">
+				<i class="bi bi-bar-chart-fill"></i> @Model.ElectionName
+			</h2>
+		</div>
+
+		<div class="card-body">
+			@if (!Model.PositionResults.Any())
+			{
+				<div class="alert alert-info mb-0">
+					No results available.
+				</div>
+			}
+			else
+			{
+				@foreach (var position in Model.PositionResults)
+				{
+					<div class="card border-0 shadow-sm mb-4">
+						<div class="card-header">
+							<div class="d-flex justify-content-between align-items-center">
+								<div>
+									<h4 class="m-0">@position.PositionName</h4>
+									<small class="text-muted">Total votes: @position.TotalVotes</small>
+								</div>
+							</div>
+						</div>
+						<div class="card-body">
+							@if (position.HasTie)
+							{
+								<div class="alert alert-primary">
+									<i class="bi bi-exclamation-triangle"></i>
+									There is a tie for first place in this elective position.
+								</div>
+							}
+							<div class="table-responsive">
+								<table class="table table-striped align-middle">
+									<thead>
+										<tr>
+											<th>Candidate / Option</th>
+											<th>Political Party</th>
+											<th>Votes</th>
+											<th>Percentage</th>
+											<th>Result</th>
+										</tr>
+									</thead>
+									<tbody>
+										@{
+											int i = 0;
+										}
+										@foreach (var candidate in position.Candidates)
+										{
+											<tr>
+
+												<td>@candidate.CandidateName</td>
+												<td>@candidate.PartyName</td>
+												<td>@candidate.VoteCount</td>
+												<td>@candidate.Percentage%</td>
+												<td>
+													@if (candidate.IsWinner)
+													{
+														<span class="badge bg-success">
+															<i class="bi bi-trophy-fill me-1"></i>Winner
+														</span>
+													}
+													else if (position.HasTie && candidate.VoteCount == position.Candidates[0].VoteCount)
+													{
+														<span class="badge bg-warning text-dark">Tie</span>
+													}
+													else if (candidate.IsNone &&
+														 i == 0 &&
+														 !position.HasTie)
+													{
+														<span class="badge bg-secondary">Most Voted Option</span>
+													}
+													else
+													{
+														<span class="text-muted small">—</span>
+													}
+												</td>
+											</tr>
+											i++;
+										}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				}
+			}
+		</div>
+	</div>
+</div>

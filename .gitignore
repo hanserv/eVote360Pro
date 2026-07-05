@@ -1,0 +1,16 @@
+.vs/
+bin/
+obj/
+
+*.user
+*.suo
+*.rsuser
+
+.env
+.env.*
+
+coverage*.json
+coverage*.xml
+
+**/wwwroot/images/
+Participante.txt

@@ -1,0 +1,72 @@
+﻿@{
+	var user = Context.Session.Get<UserViewModel>("User");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"]</title>
+	<script type="importmap"></script>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/eVote360Pro.styles.css" asp-append-version="true" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" asp-append-version="true">
+	<link rel="icon" type="image/png" href="~/Images/logo.png" />
+	@await RenderSectionAsync("Styles", required: false)
+</head>
+<body class="bg-light d-flex flex-column min-vh-100">
+	<header>
+		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+			<div class="container">
+				<a asp-area="" asp-controller="VoterIdentity" asp-action="Index" class="navbar-brand fs-5 fw-semibold fst-italic text-warning"><i class="bi bi-hand-thumbs-up-fill"></i> eVote360Pro</a>
+
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+						aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+					<ul class="navbar-nav flex-grow-1 justify-content-end">
+						@if (user is null)
+						{
+							<li class="nav-item">
+								<a asp-area="" asp-controller="Auth" asp-action="Index" class="nav-link text-white fs-6 fst-italic fw-semibold"><i class="bi bi-box-arrow-in-right"></i> Access</a>
+							</li>
+						}
+						else
+						{
+							<li class="nav-item">
+								<a asp-area="" asp-controller="Auth" asp-action="LogOut" class="nav-link btn btn-danger text-white fs-6 fst-italic fw-semibold"><i class="bi bi-box-arrow-in-right"></i> Log Out</a>
+							</li>
+						}
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<div class="container flex-grow-1 px-0">
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
+
+	<footer class="bg-dark text-white">
+		<div class="container text-center py-1">
+			<ul class="nav flex-column flex-sm-row justify-content-center border-bottom pb-1 mb-3">
+				<li class="nav-item">
+					<a asp-area="" asp-controller="" asp-action="" class="nav-link text-white px-2">eVote360Pro</a>
+				</li>
+			</ul>
+			&copy; @DateTime.UtcNow.Year - eVote360Pro
+		</div>
+	</footer>
+
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

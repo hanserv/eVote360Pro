@@ -1,0 +1,40 @@
+﻿@model UpdateCandidateViewModel
+@{
+	ViewData["Title"] = "Edit Candidate";
+}
+
+<div class="container-fluid mb-5 d-flex justify-content-center">
+	<div class="card shadow-sm border-0 col-12 col-md-6">
+		<div class="card-header bg-dark text-white">
+			<h2 class="fs-4 m-0 text-center">Edit Candidate</h2>
+		</div>
+
+		<div class="card-body bg-white p-3">
+			@Html.ValidationSummary(excludePropertyErrors: true, "", new { @class = "text-danger" })
+			<form asp-area="PoliticalLeader" asp-controller="Candidate" asp-action="Edit" method="post" enctype="multipart/form-data">
+				<div class="mb-2">
+					<label asp-for="Name" class="form-label fw-semibold">Name:</label>
+					<input asp-for="Name" class="form-control" />
+					<span asp-validation-for="Name" class="text-danger"></span>
+				</div>
+
+				<div class="mb-2">
+					<label asp-for="LastName" class="form-label fw-semibold">Last Name:</label>
+					<input asp-for="LastName" class="form-control" />
+					<span asp-validation-for="LastName" class="text-danger"></span>
+				</div>
+
+				<div class="mb-2">
+					<label asp-for="PhotoFile" class="form-label fw-semibold">Photo:</label>
+					<input asp-for="PhotoFile" class="form-control" />
+					<span asp-validation-for="PhotoFile" class="text-danger"></span>
+				</div>
+
+				<div class="d-flex col-12 gap-2 justify-content-end pt-1">
+					<a asp-area="PoliticalLeader" asp-controller="Candidate" asp-action="Index" class="btn btn-outline-warning px-4 pt-2 fw-semibold">Go back</a>
+					<button type="submit" class="btn btn-outline-dark px-5 pt-2 fw-semibold">Save Changes</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

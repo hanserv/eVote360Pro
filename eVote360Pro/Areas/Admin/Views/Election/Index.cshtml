@@ -1,0 +1,72 @@
+﻿@model IEnumerable<ElectionViewModel>
+@{
+	ViewData["Title"] = "Admin - Elections";
+	var showButtons = ViewBag.HasActiveElection ? false : true;
+}
+
+<div class="container-fluid mb-5">
+	<div class="d-flex justify-content-between gap-2">
+		<a asp-area="Admin" asp-controller="Home" asp-action="Index" class="btn btn-outline-dark fw-semibold"><i class="bi bi-arrow-left"></i> Go back</a>
+		<a asp-area="Admin" asp-controller="Election" asp-action="Create" class="btn btn-outline-dark fw-semibold px-5 @(showButtons ? "" : "disabled")"><i class="bi bi-plus-lg"></i> Create election</a>
+	</div>
+
+	<div class="card shadow-sm border-0 mt-2">
+		<div class="card-header bg-dark text-white">
+			<h2 class="fs-4 m-0"><i class="bi bi-envelope-paper-fill"></i> Elections</h2>
+		</div>
+
+		<div class="card-body bg-white p-0">
+			<div class="table-responsive">
+				<table class="table table-bordered m-0 table-hover">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Date</th>
+							<th>Status</th>
+							<th>Total Parties</th>
+							<th>Total Positions</th>
+							<th>Total Voters</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						@if (Model is not null)
+						{
+							foreach (var item in Model)
+							{
+								<tr class="@(item.Status == ElectionStatus.Active ? "table-primary" : "")">
+									<td>@item.Name</td>
+									<td>@item.Date</td>
+									<td>@item.Status</td>
+									<td>@item.TotalParties</td>
+									<td>@item.TotalPositions</td>
+									<td>@item.TotalVoters</td>
+									<td>
+										@if(item.Status == ElectionStatus.Pending)
+										{
+											<a asp-area="Admin" asp-controller="Election" asp-action="Activate" asp-route-id="@item.Id" class="btn btn-sm btn-outline-success @(showButtons ? "" : "disabled")">
+												<span>Activate</span>
+											</a>
+										}
+										else if(item.Status == ElectionStatus.Active)
+										{
+											<a asp-area="Admin" asp-controller="Election" asp-action="Finalize" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">
+												<span>Finalize</span>
+											</a>
+										}
+										else if (item.Status == ElectionStatus.Finished)
+										{
+											<a asp-area="Admin" asp-controller="Election" asp-action="Result" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">
+												<span>Show Results</span>
+											</a>
+										}
+									</td>
+								</tr>
+							}
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,28 @@
+﻿@using eVote360Pro.Core.Application.ViewModels.VoterIdentity
+@model DocumentEntryViewModel
+@{
+	ViewData["Title"] = "Vote Page";
+}
+
+<div class="container-fluid mb-5 d-flex justify-content-center">
+	<div class="card shadow-sm border-0 col-12 col-md-6">
+		<div class="card-header bg-dark text-white">
+			<h2 class="fs-4 m-0 text-center">Vote</h2>
+		</div>
+
+		<div class="card-body bg-white p-3">
+			@Html.ValidationSummary(excludePropertyErrors: true, "", new { @class = "text-danger" })
+			<form asp-area="" asp-controller="VoterIdentity" asp-action="Index" method="post">
+				<div class="mb-2">
+					<label asp-for="DocumentId" class="form-label fw-semibold">Document Id:</label>
+					<input asp-for="DocumentId" class="form-control" />
+					<span asp-validation-for="DocumentId" class="text-danger"></span>
+				</div>
+
+				<div class="d-flex col-12 gap-2 justify-content-end pt-1">
+					<button type="submit" class="btn btn-outline-dark px-5 pt-2 fw-semibold w-100">Vote</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

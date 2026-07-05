@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/Source/" />
+  <Folder Name="/Source/Core/">
+    <Project Path="eVote360Pro.Core.Application/eVote360Pro.Core.Application.csproj" Id="f2ab0d02-0035-45b6-b7c6-1e4916c9c48b" />
+    <Project Path="eVote360Pro.Core.Domain/eVote360Pro.Core.Domain.csproj" Id="4fd31d84-58d6-4fe2-a12b-74aeb23f0cc2" />
+  </Folder>
+  <Folder Name="/Source/Infrastructure/">
+    <Project Path="eVote360Pro.Infrastructure.Persistence/eVote360Pro.Infrastructure.Persistence.csproj" Id="d853aeaa-900c-49c3-abe1-9c7ab29a6e15" />
+    <Project Path="eVote360Pro.Infrastructure.Shared/eVote360Pro.Infrastructure.Shared.csproj" Id="eab5f092-3912-4d51-a944-13060c0c9962" />
+  </Folder>
+  <Folder Name="/Source/Presentation/" />
+  <Folder Name="/Source/Presentation/WebApp/">
+    <Project Path="eVote360Pro/eVote360Pro.csproj" Id="2db90be9-8e11-43af-9dc3-7bbff92cd799" />
+  </Folder>
+</Solution>
